@@ -197,8 +197,10 @@
   .js .shots img.is-visible{transition:transform .35s ease, box-shadow .35s ease}
   .shots img:hover, .js .shots img.is-visible:hover{transform:translateY(-8px) rotate(-1deg);box-shadow:0 26px 36px -14px rgba(0,0,0,.6)}
   main{overflow-x:clip}
-  .project{transition:background-color .3s ease}
-  .project:hover{background:linear-gradient(90deg,rgba(226,165,49,.08),transparent 70%)}
+  .project h3, .project .go{transition:color .25s ease}
+  .project:hover h3{color:var(--indigo-2)}
+  .project:hover .go{color:var(--orange)}
+
 
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}

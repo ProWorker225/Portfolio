@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<script>document.documentElement.classList.add('js')</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yann Zougouri — Développeur web et mobile</title>
+<meta name="description" content="Yann Zougouri, développeur web et mobile à Abidjan : sites et applications web (React, Node.js) et applications mobiles (Flutter, FastAPI).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --indigo:#1A2350;
+    --indigo-2:#2B3A78;
+    --paper:#F3F5F8;
+    --white:#FFFFFF;
+    --gold:#E2A531;
+    --forest:#2E7D54;
+    --orange:#E8702A;
+    --muted:#55607F;
+    --line:#D6DBE6;
+    --display:"Familjen Grotesk", system-ui, sans-serif;
+    --body:"Atkinson Hyperlegible", system-ui, sans-serif;
+    --wrap:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  @media (max-width:640px){html{scroll-padding-top:104px}}
+  body{font-family:var(--body);font-size:1.0625rem;line-height:1.6;color:var(--indigo);background:var(--paper)}
+  a{color:inherit}
+  img{max-width:100%;display:block}
+  :focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+
+  /* Bande tissée : motif inspiré des pagnes tissés baoulé */
+  .weave{
+    background:
+      repeating-linear-gradient(90deg, transparent 0 22px, rgba(26,35,80,.9) 22px 26px, transparent 26px 48px),
+      repeating-linear-gradient(0deg,
+        var(--gold) 0 18px, var(--indigo) 18px 24px,
+        var(--forest) 24px 42px, var(--white) 42px 46px,
+        var(--orange) 46px 58px, var(--indigo) 58px 64px,
+        var(--gold) 64px 70px, var(--indigo-2) 70px 96px);
+  }
+
+  /* En-tête */
+  header{position:sticky;top:0;z-index:10;background:rgba(243,245,248,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{white-space:nowrap;font-family:var(--display);font-weight:700;font-size:1.2rem;text-decoration:none;letter-spacing:-.01em}
+  .logo span{display:inline-block;width:10px;height:10px;background:var(--gold);border-radius:2px;margin-right:8px;transform:rotate(45deg)}
+  .nav ul{display:flex;gap:28px;list-style:none}
+  .nav ul a{text-decoration:none;color:var(--muted);font-size:.98rem}
+  .nav ul a:hover{color:var(--indigo)}
+  @media (max-width:640px){
+    .nav{flex-wrap:wrap;height:auto;padding-top:12px;padding-bottom:4px;row-gap:4px}
+    .logo{font-size:1.05rem}
+    .nav ul{width:100%;justify-content:space-between;gap:8px;overflow-x:auto;scrollbar-width:none}
+    .nav ul a{display:block;padding:8px 0;font-size:.95rem;white-space:nowrap}
+  }
+
+  /* Hero */
+  .hero{position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:28px 1.15fr .85fr;gap:48px;align-items:center;padding-top:72px;padding-bottom:88px}
+  .hero .strip{align-self:stretch;border-radius:4px;min-height:420px}
+  .hero h1{font-family:var(--display);font-weight:700;font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.02;letter-spacing:-.03em}
+  .hero .stack{margin-top:8px;color:var(--muted);font-size:1rem;letter-spacing:.01em}
+  .hero .role{font-family:var(--display);font-weight:500;font-size:clamp(1.25rem,2.2vw,1.6rem);color:var(--indigo-2);margin-top:18px;line-height:1.3}
+  .hero p.lead{margin-top:22px;max-width:52ch;color:var(--muted)}
+  .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:700;text-decoration:none;font-size:1rem;border:2px solid var(--indigo)}
+  .btn-primary{background:var(--indigo);color:var(--white)}
+  .btn-primary:hover{background:var(--indigo-2);border-color:var(--indigo-2)}
+  .btn-ghost{background:transparent}
+  .btn-ghost:hover{background:var(--white)}
+  .place{align-items:flex-start;margin-top:28px;font-size:.95rem;color:var(--muted);display:flex;gap:8px}
+  .place::before{content:"";flex:none;margin-top:8px;width:8px;height:8px;border-radius:50%;background:var(--forest)}
+
+  /* Téléphone */
+  .phone{justify-self:center;width:280px;border-radius:40px;background:var(--indigo);padding:12px;box-shadow:0 30px 60px -20px rgba(26,35,80,.45)}
+  .screen{background:#0E0F1A;border-radius:30px;overflow:hidden}
+  .screen img{width:100%;height:auto}
+  .app-bar{background:var(--forest);color:var(--white);padding:34px 18px 14px;font-family:var(--display);font-weight:600}
+  .app-bar small{display:block;font-family:var(--body);font-weight:400;opacity:.85;font-size:.78rem}
+  .chat{flex:1;overflow:hidden;padding:16px 14px;display:flex;flex-direction:column;gap:10px;background:#F7F8FB}
+  .search{border:1px solid var(--line);background:var(--white);border-radius:999px;padding:9px 14px;font-size:.88rem;color:var(--indigo)}
+  .search::before{content:"⌕ ";color:var(--muted)}
+  .result{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:.86rem;color:var(--muted)}
+  .result strong{display:block;font-family:var(--display);color:var(--indigo);font-size:1.05rem}
+  .result:not(.small){border:2px solid var(--forest);opacity:0;transform:translateY(6px);animation:pop .5s ease .6s forwards}
+  .result:not(.small) strong{font-size:1.5rem;color:var(--forest)}
+  .result .cat{float:right;font-size:.72rem;background:#E6F2EB;color:var(--forest);padding:2px 8px;border-radius:999px}
+  .cats{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+  .cats span{font-size:.75rem;padding:4px 10px;border-radius:999px;background:var(--gold);color:var(--indigo);font-weight:700}
+  .input{margin:0 12px 14px;border:1px solid var(--line);border-radius:999px;padding:10px 14px;font-size:.85rem;color:var(--muted);background:var(--white)}
+  @keyframes pop{to{opacity:1;transform:none}}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:40px;padding-top:48px;padding-bottom:64px}
+    .hero .strip{min-height:14px;height:14px;order:-1;background:repeating-linear-gradient(90deg,var(--gold) 0 18px,var(--indigo) 18px 24px,var(--forest) 24px 42px,var(--white) 42px 46px,var(--orange) 46px 58px,var(--indigo) 58px 64px,var(--gold) 64px 70px,var(--indigo-2) 70px 96px)}
+  }
+
+  /* Sections */
+  section{padding:88px 0}
+  .sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(2rem,4vw,2.8rem);letter-spacing:-.02em;line-height:1.1}
+  .sec-head p{color:var(--muted);max-width:44ch}
+
+  /* Projet phare */
+  .featured{display:grid;grid-template-columns:1.1fr .9fr;background:var(--indigo);color:var(--white);border-radius:20px;overflow:hidden}
+  .featured .body{padding:48px}
+  .featured .tag{display:inline-block;background:var(--gold);color:var(--indigo);font-weight:700;font-size:.85rem;padding:4px 12px;border-radius:999px}
+  .featured h3{font-family:var(--display);font-size:clamp(1.8rem,3.2vw,2.4rem);margin-top:18px;line-height:1.1;letter-spacing:-.02em}
+  .featured p{margin-top:16px;color:#CDD3EA;max-width:52ch}
+  .featured dl{margin-top:28px;display:grid;grid-template-columns:auto 1fr;gap:10px 20px;font-size:.98rem}
+  .featured dt{color:var(--gold);font-weight:700}
+  .featured dd{color:#E6E9F5}
+  .featured .visual{min-height:440px;position:relative}
+  .shots{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:14px;padding:28px 20px}
+  .shots img{height:auto;width:31%;max-width:160px;aspect-ratio:540/1120;object-fit:cover;border-radius:16px;border:4px solid var(--indigo);box-shadow:0 18px 30px -12px rgba(0,0,0,.5);background:var(--indigo)}
+  .linkbtn{background:none;border:0;color:var(--white);font:inherit;font-weight:700;text-decoration:underline;text-underline-offset:4px;cursor:pointer;padding:0}
+  dialog.demo{border:0;padding:0;background:transparent;margin:auto;max-height:92vh}
+  dialog.demo::backdrop{background:rgba(14,18,40,.82)}
+  dialog.demo video{display:block;max-height:84vh;max-width:92vw;border-radius:18px;background:#000}
+  dialog.demo .close{display:block;margin:0 0 10px auto;background:var(--white);color:var(--indigo);border:0;border-radius:999px;padding:8px 16px;font:inherit;font-weight:700;cursor:pointer}
+  .featured .visual .shot{position:absolute;inset:32px;border:2px dashed rgba(255,255,255,.35);border-radius:14px;display:grid;place-items:center;text-align:center;padding:20px;color:#CDD3EA;font-size:.92rem;background:rgba(255,255,255,.04)}
+  .featured .visual::before{content:"";position:absolute;inset:0 auto 0 0;width:14px}
+  .links{display:flex;gap:20px;margin-top:28px;flex-wrap:wrap}
+  .links a{color:var(--white);font-weight:700;text-underline-offset:4px}
+  @media (max-width:900px){.featured{grid-template-columns:1fr}.featured .body{padding:32px 24px}.featured .visual{min-height:380px}}
+
+  /* Autres projets */
+  .projects{margin-top:24px;border-top:1px solid var(--line)}
+  .project{display:grid;grid-template-columns:1fr 1.3fr auto;gap:32px;padding:32px 0;border-bottom:1px solid var(--line);align-items:start}
+  .project h3{font-family:var(--display);font-size:1.45rem;line-height:1.2;letter-spacing:-.01em}
+  .project .kind{color:var(--muted);font-size:.95rem;margin-top:6px}
+  .project p{color:var(--indigo);max-width:60ch}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;list-style:none}
+  .chips li{font-size:.85rem;padding:4px 11px;border-radius:999px;background:var(--white);border:1px solid var(--line)}
+  .project .go{font-weight:700;white-space:nowrap;text-underline-offset:4px}
+  @media (max-width:800px){.project{grid-template-columns:1fr;gap:12px}}
+
+  /* Compétences */
+  #competences{background:var(--white)}
+  .skills{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:3px solid var(--indigo)}
+  .skill{padding:28px 24px 8px 0}
+  .skill + .skill{padding-left:24px;border-left:1px solid var(--line)}
+  .skill h3{font-family:var(--display);font-size:1.2rem;margin-bottom:14px}
+  .skill ul{list-style:none}
+  .skill li{padding:6px 0;border-bottom:1px dashed var(--line)}
+  .skill li:last-child{border-bottom:0}
+  @media (max-width:900px){.skills{grid-template-columns:1fr 1fr}.skill:nth-child(3){padding-left:0;border-left:0}}
+  @media (max-width:520px){.skills{grid-template-columns:1fr}.skill + .skill{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
+
+  /* Parcours */
+  .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px}
+  .about p{margin-bottom:16px;max-width:60ch}
+  .timeline{list-style:none;border-left:3px solid var(--gold);padding-left:24px}
+  .timeline li{position:relative;padding-bottom:26px}
+  .timeline li::before{content:"";position:absolute;left:-32px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--paper);border:3px solid var(--indigo)}
+  .timeline .when{color:var(--muted);font-size:.92rem}
+  .timeline strong{font-family:var(--display);font-size:1.15rem;display:block}
+  @media (max-width:800px){.about{grid-template-columns:1fr;gap:32px}}
+
+  /* Contact */
+  .contact{background:var(--indigo);color:var(--white);border-radius:20px;padding:56px 48px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;position:relative;overflow:hidden}
+  .contact h2{color:var(--white)}
+  .contact p{color:#CDD3EA;margin-top:14px;max-width:46ch}
+  .contact .ways{display:flex;flex-direction:column;gap:14px}
+  .way{display:flex;justify-content:space-between;gap:16px;align-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:14px 18px;color:var(--white);text-decoration:none}
+  .way:hover{background:rgba(255,255,255,.13)}
+  .way span:first-child{color:var(--gold);font-weight:700;font-size:.9rem}
+  .way span:last-child{word-break:break-all;text-align:right}
+  .contact .band{position:absolute;left:0;right:0;bottom:0;height:10px}
+  @media (max-width:800px){.contact{grid-template-columns:1fr;padding:40px 24px 48px}}
+
+  footer{padding:40px 0;color:var(--muted);font-size:.92rem}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+
+  /* ===== Apparition progressive au scroll ===== */
+  .js [data-reveal]{
+    opacity:0;transform:translateY(28px);
+    transition:opacity .7s cubic-bezier(.2,.7,.2,1) var(--d,0s), transform .7s cubic-bezier(.2,.7,.2,1) var(--d,0s);
+  }
+  .js [data-reveal="grow"]{transition:clip-path .9s cubic-bezier(.6,0,.2,1) var(--d,0s);
+  }
+  .js [data-reveal="left"]{transform:translateX(-32px)}
+  .js [data-reveal="right"]{transform:translateX(32px)}
+  .js [data-reveal="zoom"]{transform:translateY(20px) scale(.94)}
+  .js [data-reveal="grow"]{opacity:1;transform:none;clip-path:inset(0 0 100% 0)}
+  .js [data-reveal].is-visible{opacity:1;transform:none}
+  .js [data-reveal="grow"].is-visible{clip-path:inset(0 0 0 0)}
+  @media (max-width:900px){.js .hero [data-reveal="grow"]:not(.is-visible){clip-path:inset(0 100% 0 0)}}
+  /* Petits effets au survol */
+  .shots img{transition:transform .35s ease, box-shadow .35s ease}
+  .js .shots img.is-visible{transition:transform .35s ease, box-shadow .35s ease}
+  .shots img:hover, .js .shots img.is-visible:hover{transform:translateY(-8px) rotate(-1deg);box-shadow:0 26px 36px -14px rgba(0,0,0,.6)}
+  main{overflow-x:clip}
+  .project{transition:background-color .3s ease}
+  .project:hover{background:linear-gradient(90deg,rgba(226,165,49,.08),transparent 70%)}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .js [data-reveal]{opacity:1!important;transform:none!important;clip-path:none!important;transition:none!important}
+    .shots img,.project{transition:none}
+    .result{animation:none!important;opacity:1!important;transform:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap nav" aria-label="Navigation principale">
+    <a href="#top" class="logo"><span aria-hidden="true"></span>Yann Zougouri</a>
+    <ul>
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#competences">Compétences</a></li>
+      <li><a href="#parcours">Parcours</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div class="strip weave" aria-hidden="true" data-reveal="grow"></div>
+      <div>
+        <h1 data-reveal>Yann Zougouri</h1>
+        <p class="role" data-reveal style="--d:.12s">Développeur web et mobile</p>
+        <p class="stack" data-reveal style="--d:.22s">React · Node.js · Flutter · FastAPI</p>
+        <p class="lead" data-reveal style="--d:.32s">Je conçois des sites, des applications web et des applications mobiles utiles pour le quotidien en Côte d’Ivoire, de l’interface jusqu’à l’API. Étudiant en génie logiciel à l’ESATIC, je travaille aussi en freelance.</p>
+        <div class="actions" data-reveal style="--d:.42s">
+          <a class="btn btn-primary" href="#projets">Voir mes projets</a>
+          <a class="btn btn-ghost" href="#contact">Me contacter</a>
+        </div>
+        <p class="place" data-reveal style="--d:.52s">Abidjan, Côte d’Ivoire · disponible pour des missions freelance</p>
+      </div>
+      <div class="phone" data-reveal="zoom" style="--d:.3s">
+        <div class="screen"><img src="assets/traducteur.jpg" width="540" height="1120" alt="Écran Traducteur de l’application Blefemi Kouadio : « Bonjour » traduit en baoulé par « kwanla »."></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJETS -->
+  <section id="projets">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-reveal>Projets</h2>
+        <p data-reveal style="--d:.12s">Une sélection d’applications web et mobiles réalisées en formation, en équipe et pour des clients.</p>
+      </div>
+
+      <article class="featured" data-reveal>
+        <div class="body">
+          <span class="tag">Projet phare</span>
+          <h3>Blefemi Kouadio</h3>
+          <p>Une application mobile pour apprendre le baoulé, langue parlée au centre de la Côte d’Ivoire. Elle réunit un dictionnaire français – baoulé consultable sans connexion, des leçons par thème et des quiz pour s’entraîner.</p>
+          <dl>
+            <dt>Mobile</dt><dd>Flutter (Dart)</dd>
+            <dt>Contenu</dt><dd>460 mots et expressions, classés en 26 catégories</dd>
+            <dt>Fonctions</dt><dd>Dictionnaire et traducteur hors ligne, leçons, quiz, comptes utilisateurs</dd>
+            <dt>Interface</dt><dd>Animations Lottie et flutter_animate, menu latéral</dd>
+          </dl>
+          <div class="links">
+            <button type="button" class="linkbtn" id="open-demo">Voir la démo vidéo</button>
+            <a href="assets/blefemi-kouadio.apk" download>Télécharger l’APK (Android, 20 Mo)</a>
+          </div>
+        </div>
+        <div class="visual weave">
+          <div class="shots">
+            <img data-reveal style="--d:0.40s" src="assets/apprentissage.jpg" width="540" height="1120" alt="Écran Apprentissage : leçons par thème (Salutations, Chiffres, Famille, Corps humain) avec niveau et points d’expérience.">
+            <img data-reveal style="--d:0.55s" src="assets/dictionnaire.jpg" width="540" height="1120" alt="Écran Dictionnaire baoulé de 460 mots, avec recherche en français ou en baoulé.">
+            <img data-reveal style="--d:0.70s" src="assets/traducteur.jpg" width="540" height="1120" alt="Écran Traducteur français vers baoulé.">
+          </div>
+        </div>
+      </article>
+
+      <div class="projects">
+        <article class="project" data-reveal>
+          <div>
+            <h3>JVPT Administration</h3>
+            <p class="kind">Mission freelance · interface web d’administration</p>
+          </div>
+          <div>
+            <p>Le back-office de la plateforme « Je Visite Pour Toi » : à partir d’une maquette fournie par une cliente, intégration des écrans, de la navigation et de la logique côté front-end.</p>
+            <ul class="chips"><li>Front-end</li><li>Intégration de maquette</li><li>Mission client</li></ul>
+          </div>
+          <a class="go" href="https://jvpt-admin.vercel.app/">Voir la maquette</a>
+        </article>
+
+        <article class="project" data-reveal>
+          <div>
+            <h3>Ma lettre pour toi</h3>
+            <p class="kind">Projet personnel · application web</p>
+          </div>
+          <div>
+            <p>Un service pour offrir une surprise en ligne. Le client crée son compte avec un code d’activation, prépare une lettre et des photos, puis envoie un lien que seul le destinataire peut ouvrir grâce à un code à 6 chiffres. Photos privées, vérification du code côté serveur avec limite d’essais, et un espace propriétaire pour gérer les codes et les clients.</p>
+            <ul class="chips"><li>JavaScript</li><li>Supabase</li><li>PostgreSQL</li><li>Vercel</li></ul>
+          </div>
+          <a class="go" href="https://ma-lettre-pour-toi.vercel.app/" target="_blank" rel="noopener">Voir le site</a>
+        </article>
+
+        <article class="project" data-reveal>
+          <div>
+            <h3>PLUVIO</h3>
+            <p class="kind">Projet d’équipe APP3 · ESATIC</p>
+          </div>
+          <div>
+            <p>Une solution d’alerte contre les inondations en Côte d’Ivoire : prévenir à l’échelle de la rue, alerter à temps et secourir plus vite. Alertes de proximité à trois niveaux, SMS et notifications ciblées, carte des zones à risque et des lieux de refuge, bouton SOS et fonctionnement sans connexion.</p>
+            <ul class="chips"><li>Application mobile</li><li>Alertes SMS</li><li>Carte en temps réel</li><li>Travail en équipe</li></ul>
+          </div>
+          <a class="go" href="assets/pluvio-presentation.pdf" target="_blank" rel="noopener">Voir la présentation (PDF)</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES -->
+  <section id="competences">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-reveal>Compétences</h2>
+        <p data-reveal style="--d:.12s">Les outils que j’utilise sur mes projets, du téléphone jusqu’au serveur.</p>
+      </div>
+      <div class="skills">
+        <div class="skill" data-reveal style="--d:0.0s">
+          <h3>Web</h3>
+          <ul><li>React</li><li>Vue.js</li><li>HTML / CSS</li><li>Laravel / PHP</li><li>Figma</li></ul>
+        </div>
+        <div class="skill" data-reveal style="--d:0.1s">
+          <h3>Backend</h3>
+          <ul><li>FastAPI / Python</li><li>Node.js</li><li>Django</li><li>SQL, Supabase</li></ul>
+        </div>
+        <div class="skill" data-reveal style="--d:0.2s">
+          <h3>Mobile</h3>
+          <ul><li>Flutter / Dart</li><li>Kotlin (Android)</li><li>Room, RecyclerView</li><li>Java</li></ul>
+        </div>
+        <div class="skill" data-reveal style="--d:0.3s">
+          <h3>Outils et cloud</h3>
+          <ul><li>UML, Merise</li><li>AWS EC2</li><li>Netlify, Vercel</li><li>Git</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARCOURS -->
+  <section id="parcours">
+    <div class="wrap about">
+      <div data-reveal="left">
+        <h2>Parcours</h2>
+        <p style="margin-top:20px">Je m’appelle Yann et je suis étudiant en génie logiciel à l’ESATIC, à Abidjan. J’aime construire des applications qui répondent à des besoins concrets d’ici : apprendre une langue locale, offrir une surprise en ligne, alerter en cas d’inondation.</p>
+        <p>En parallèle de mes études, je réalise des sites web et des applications mobiles pour des clients en freelance.</p>
+      </div>
+      <ol class="timeline">
+        <li data-reveal="right" style="--d:0.15s"><span class="when">Aujourd’hui</span><strong>Développeur freelance</strong>Sites web, interfaces d’administration et applications mobiles pour des clients.</li>
+        <li data-reveal="right" style="--d:0.30s"><span class="when">2026 – 2027</span><strong>Licence 3 SIGL — ESATIC</strong>Systèmes Informatiques et Génie Logiciel, École Supérieure Africaine des TIC, Abidjan.</li>
+        <li data-reveal="right" style="--d:0.45s"><span class="when">Baccalauréat</span><strong>Bac série C — Lycée Classique d’Abidjan</strong>Mathématiques et sciences physiques.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="padding-top:0">
+    <div class="wrap">
+      <div class="contact" data-reveal="zoom">
+        <div>
+          <h2>Un projet de site ou d’application ?</h2>
+          <p>Décrivez-moi votre idée, je vous réponds avec une estimation du délai et du prix.</p>
+        </div>
+        <div class="ways">
+          <a class="way" data-reveal="right" style="--d:0.27s" href="mailto:yannzougouri225@gmail.com"><span>E-mail</span><span>yannzougouri225@gmail.com</span></a>
+          <a class="way" data-reveal="right" style="--d:0.39s" href="https://wa.me/2250788899729"><span>WhatsApp</span><span>+225 07 88 89 97 29</span></a>
+          <a class="way" data-reveal="right" style="--d:0.51s" href="assets/CV_Yann_Zougouri.pdf" target="_blank" rel="noopener"><span>CV</span><span>Voir mon CV (PDF)</span></a>
+        </div>
+        <div class="band weave" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Yann Zougouri</span>
+    <span>Conçu et développé à Abidjan</span>
+  </div>
+</footer>
+
+<dialog class="demo" id="demo" aria-label="Démo vidéo de Blefemi Kouadio">
+  <button type="button" class="close" id="close-demo">Fermer</button>
+  <video id="demo-video" src="assets/demo-blefemi-kouadio.mp4" controls playsinline preload="none" poster="assets/apprentissage.jpg"></video>
+</dialog>
+<script>
+  (function(){
+    var d=document.getElementById('demo'), v=document.getElementById('demo-video');
+    document.getElementById('open-demo').addEventListener('click',function(){
+      if(d.showModal){d.showModal();}else{d.setAttribute('open','');}
+      try{var p=v.play(); if(p&&p.catch)p.catch(function(){});}catch(e){}
+    });
+    function close(){v.pause(); if(d.close)d.close(); else d.removeAttribute('open');}
+    document.getElementById('close-demo').addEventListener('click',close);
+    d.addEventListener('close',function(){v.pause();});
+    d.addEventListener('click',function(e){if(e.target===d)close();});
+  })();
+
+  /* Apparition progressive au scroll */
+  (function(){
+    var els=document.querySelectorAll('[data-reveal]');
+    if(!('IntersectionObserver' in window)){
+      els.forEach(function(el){el.classList.add('is-visible');}); return;
+    }
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        /* un élément masqué (clip-path) est observé via son parent */
+        var t=e.target.__revealChild||e.target;
+        t.classList.add('is-visible'); io.unobserve(e.target);
+      });
+    },{threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(el){
+      if(el.getAttribute('data-reveal')==='grow'){var p=el.parentElement; p.__revealChild=el; io.observe(p);}
+      else io.observe(el);
+    });
+  })();
+</script>
+</body>
+</html>

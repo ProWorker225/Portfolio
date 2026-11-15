@@ -391,3 +391,118 @@ footer a{color:var(--muted)}
 .si{fill:var(--c,currentColor)}
 .btn-wa .si,.wa .si{fill:currentColor}
 
+
+/* =========================================================
+   Responsive : tablette et téléphone
+   ========================================================= */
+.about-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
+@media (max-width:900px){.about-grid{grid-template-columns:minmax(0,1fr)}}
+.kv strong{min-width:0;overflow-wrap:anywhere}
+
+/* Barre du bas : largeur limitée sur tablette */
+@media (max-width:860px){
+  .bottom-nav{left:50%;right:auto;transform:translateX(-50%);width:min(calc(100% - 24px),520px)}
+}
+
+/* ---------- Tablette (700 à 900 px) ---------- */
+@media (min-width:701px) and (max-width:900px){
+  .hero{padding:48px 0 72px}
+  .hero-grid{grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:36px}
+  .portrait{width:100%}
+  .float-chip{font-size:.8rem;padding:7px 11px}
+  .float-chip.c1{left:-18px}.float-chip.c2{right:-6px}
+  .about-grid{grid-template-columns:1fr}
+  .about-grid .cards{grid-template-columns:1fr 1fr;align-items:start}
+  .projects{grid-template-columns:1fr 1fr}
+  .project.featured{grid-column:1/-1}
+  .project .visual{min-height:280px}
+  .project:not(.featured) .phone{width:min(56%,170px)}
+  section{padding:84px 0}
+}
+
+/* ---------- Téléphone (700 px et moins) ---------- */
+@media (max-width:700px){
+  section{padding:64px 0}
+  .sec-head{margin-bottom:28px;gap:12px}
+  h2{font-size:clamp(2rem,9vw,2.6rem)}
+
+  /* Hero : photo en premier, plus compacte */
+  .hero{padding:28px 0 48px}
+  .hero-grid{gap:30px}
+  .portrait{order:-1;width:min(62%,250px)}
+  .portrait-frame{border-radius:26px;padding:9px}
+  .portrait-inner{border-radius:19px}
+  .float-chip{font-size:.78rem;padding:6px 10px;border-radius:11px;gap:6px}
+  .float-chip svg{width:15px;height:15px}
+  .float-chip.c1{left:-30px;top:12%}
+  .float-chip.c2{right:-34px;top:46%}
+  .float-chip.c3{left:-22px;bottom:7%}
+  .hero h1{font-size:clamp(2.8rem,14vw,3.8rem)}
+  .hero .role{margin-top:16px}
+  .typeline{min-height:3.3em}
+  .hero .lead{margin-top:14px}
+  .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:26px}
+  .actions .btn{justify-content:center;padding:13px 12px}
+  .actions .btn-primary{grid-column:1/-1}
+  .actions .btn-link{border:1.5px solid var(--line-strong);padding:13px 12px;color:var(--text)}
+  .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:30px;padding-top:20px}
+  .facts strong{font-size:1.05rem}
+  .facts span{font-size:.78rem;line-height:1.3}
+
+  /* À propos */
+  .about-grid{gap:28px}
+  .card{padding:20px}
+
+  /* Compétences : deux colonnes compactes */
+  .skill-groups{gap:14px}
+  .skill-group{padding:20px}
+  .skill-group header{flex-direction:column;align-items:flex-start;gap:2px;margin-bottom:12px}
+  .skill-group h3{font-size:1.3rem}
+  .skills{grid-template-columns:1fr 1fr;gap:6px}
+  .skill{padding:8px;gap:10px}
+  .skill .logo-tile{width:36px;height:36px;border-radius:10px}
+  .skill .logo-tile svg{width:19px;height:19px}
+  .skill b{font-size:.92rem}
+  .skill small{display:none}
+
+  /* Projets */
+  .projects{gap:16px}
+  .project{border-radius:22px}
+  .project .visual{min-height:0;padding:26px 16px}
+  .project:not(.featured) .phone{width:min(52%,180px)}
+  .project .body,.featured .body{padding:22px;gap:12px}
+  .project h3{font-size:1.6rem}
+  .p-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .p-actions .btn{justify-content:center;padding:12px 10px}
+  .p-actions .btn-link{grid-column:1/-1;padding:4px}
+
+  /* Fiche projet */
+  .sheet-body{padding:22px}
+  .sheet h3{font-size:1.6rem}
+  .sheet .p-actions .btn{grid-column:1/-1}
+
+  /* Processus */
+  .step{padding:20px}
+  .step h3{font-size:1.3rem}
+
+  /* Contact */
+  .contact h2{font-size:clamp(2.8rem,15vw,4rem)}
+  .contact-links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px}
+  .pill{justify-content:center;padding:12px 10px}
+  .pill-primary{grid-column:1/-1}
+  form.msg{margin-top:28px}
+
+  /* Pied de page */
+  footer .wrap{flex-direction:column;align-items:center;text-align:center;gap:8px}
+}
+
+/* ---------- Très petits téléphones ---------- */
+@media (max-width:360px){
+  .wrap{padding:0 18px}
+  .actions{grid-template-columns:1fr}
+  .facts{gap:8px}
+  .facts strong{font-size:.95rem}
+  .skills{grid-template-columns:1fr}
+  .p-actions{grid-template-columns:1fr}
+  .float-chip.c2{right:-24px}
+}
